@@ -1,0 +1,16 @@
+household_power_consumption <- read.csv("~/Downloads/household_power_consumption.txt", sep=";", na.strings="?")
+DT <- household_power_consumption
+DT <- na.omit(DT)
+DT2 <- DT[DT$Date == "1/2/2007" | DT$Date == "2/2/2007",]
+par(mfcol = c(2,2))
+plot(ts(DT2$Global_active_power), xaxt="n", ylab="Global Active Power", xlab = "")
+axis(side=1, at=c(0, 1440, 2880), labels=c("Thu", "Fri", "Sat"))
+plot(ts(DT2$Sub_metering_1), xaxt="n", ylab="Energy sub metering", xlab = "")
+axis(side=1, at=c(0, 1440, 2880), labels=c("Thu", "Fri", "Sat"))
+lines(ts(DT2$Sub_metering_2), col = "red")
+lines(ts(DT2$Sub_metering_3), col = "blue")
+legend("topright", cex = .5, lty = 1, bty = "n", col = c("black", "blue", "red"), legend = c("sub_metering_1", "sub_metering_2", "sub_metering_3"))
+plot(ts(DT2$Voltage), xaxt="n", ylab="Voltage", xlab = "datetime")
+axis(side=1, at=c(0, 1440, 2880), labels=c("Thu", "Fri", "Sat"))
+plot(ts(DT2$Global_reactive_power), xaxt="n", ylab="Global_reactive_power", xlab = "datetime")
+axis(side=1, at=c(0, 1440, 2880), labels=c("Thu", "Fri", "Sat"))
